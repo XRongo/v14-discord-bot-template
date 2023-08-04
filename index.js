@@ -49,5 +49,15 @@ FS.readdirSync("./events").forEach(f => {
 // github.com/XRongo
 client.login(config.token)
 
+process.on("unhandledRejection", (reason) => {
+    console.error(chalk.default.red(`[ERROR] ${reason}`));
+  });
+  process.on("uncaughtException", (err) => {
+    console.error(chalk.default.red(`[ERROR] ${err}`));
+  });
+  process.on("uncaughtExceptionMonitor", (err) => {
+    console.error(chalk.default.red(`[ERROR] ${err}`));
+  });
+
 
 
