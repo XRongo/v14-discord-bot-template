@@ -18,5 +18,5 @@ Bu Discord Bot şablonu, Discord.js kütüphanesi kullanılarak geliştirilmişt
 
 - Discord: [X](https://discord.gg/FcUwaJZRSS) veya [XRongo](https://discord.com/users/592442056115486723)
 - Email: [xrongo.iletisim@gmail.com](mailto:xrongo.iletisim@gmail.com)
-```
+---
 © 2024 Discord Bot Template. Tüm hakları saklıdır.
