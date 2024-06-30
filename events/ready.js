@@ -6,7 +6,7 @@ module.exports = {
     once: true,
 
     async execute(client) {
-        client.application.commands.set(client.commands)
+        client.application.commands.set(client.slashCommandDatas)
         client.success(`[READY] ${client.user.tag} olarak giriş yapıldı.`)
     }
 }
