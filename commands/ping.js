@@ -1,15 +1,10 @@
 const Discord = require("discord.js")
 
 module.exports = {
-    name: "ping", // ZORUNLU
-    description: "Botun gecikmesini gösterir.", // ZORUNLU
-    type: 1, // ZORUNLU
+    name: "ping",
+    description: "Botun gecikmesini gösterir.",
+    type: 1,
     options: [],
-
-    /**
-     * @param {Discord.Client} client
-     * @param {Discord.ChatInputCommandInteraction} interaction
-     */
 
     async execute(client, interaction) {
         interaction.reply(`Ölçülüyor...`).then(() => {

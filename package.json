@@ -1,10 +1,10 @@
 {
   "name": "v14-discord-bot-template",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Discord.js V14 kullanarak basit bir Discord botu şablonu. Komutlar ve olay işleme desteği ile işlevsel bir bot oluşturmak için temel yapı.",
-  "main": "index.js",
+  "main": "bot.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node ."
   },
   "author": "XRongo",
   "license": "MIT",
@@ -17,8 +17,7 @@
     "V14"
   ],
   "dependencies": {
-    "chalk": "^2.4.2",
-    "discord.js": "^14.12.1",
-    "fs": "^0.0.1-security"
+    "chalk": "^4.1.2",
+    "discord.js": "^14.15.3"
   }
 }
