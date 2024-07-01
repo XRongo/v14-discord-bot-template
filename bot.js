@@ -25,31 +25,46 @@ client.warn = (message) => console.warn(chalk.yellow(`${message}`))
 client.slashCommands = new Discord.Collection()
 client.slashCommandDatas = []
 
-FS.readdirSync("./commands").forEach(f => {
-    if (!f.endsWith(".js")) return;
-    const command = require(`./commands/${f}`)
-    if (!command.name || !command.type) return;
-    client.slashCommandDatas.push({
-        name: command.name,
-        description: command.description,
-        options: command.options,
-        dm_permission: false,
-        type: command.type
-    })
-    client.slashCommands.set(command.name, command)
-    client.success(`[COMMAND] ${command.name} komutu yüklendi.`)
+FS.readdirSync("./commands").filter(f => f.endsWith(".js")).forEach(f => {
+    try {
+        const command = require(`./commands/${f}`)
+        var eksilikler = []
+        if (!command.name) eksilikler.push("name")
+        if (command.type === 1 && !command.description) eksilikler.push("description")
+        if (!command.type) eksilikler.push("type")
+        if (!command.execute) eksilikler.push("execute")
+        if (eksilikler.length > 0) return client.error(`[COMMAND] ${f} komutunda eksiklikler var: ${eksilikler.join(", ")}`)
+        client.slashCommandDatas.push({
+            name: command.name,
+            description: command.description,
+            options: command?.options,
+            dm_permission: false,
+            type: command.type,
+            default_member_permissions: command?.default_member_permissions,
+        })
+        client.slashCommands.set(command.name, command)
+        client.success(`[COMMAND] ${command.name} komutu yüklendi.`)
+    } catch (error) {
+        client.error(`[COMMAND] ${f} komutunda bir hata oluştu: ${error}`)
+    }
 })
 
-FS.readdirSync("./events").forEach(f => {
-    if (!f.endsWith(".js")) return;
-    const event = require(`./events/${f}`)
-    if (!event.name) return;
-    if (event.once) {
-        client.once(event.name, (...args) => event.execute(client, ...args))
-    } else {
-        client.on(event.name, (...args) => event.execute(client, ...args))
+FS.readdirSync("./events").filter(f => f.endsWith(".js")).forEach(f => {
+    try {
+        const event = require(`./events/${f}`)
+        var eksilikler = []
+        if (!event.name) eksilikler.push("name")
+        if (!event.execute) eksilikler.push("execute")
+        if (eksilikler.length > 0) return client.error(`[COMMAND] ${f} komutunda eksiklikler var: ${eksilikler.join(", ")}`)
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(client, ...args))
+        } else {
+            client.on(event.name, (...args) => event.execute(client, ...args))
+        }
+        client.success(`[EVENT] ${event.name} eventi yüklendi.`)
+    } catch (error) {
+        client.error(`[EVENT] ${f} eventinde bir hata oluştu: ${error}`)
     }
-    client.success(`[EVENT] ${event.name} eventi yüklendi.`)
 })
 
 client.login(ayarlar.bot_token)
