@@ -1,6 +1,4 @@
-const chalk = require("chalk");
 const Discord = require("discord.js")
-const FS = require("fs")
 
 module.exports = {
 	name: Discord.Events.InteractionCreate,

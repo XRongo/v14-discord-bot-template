@@ -29,7 +29,7 @@ FS.readdirSync("./commands").forEach(f => {
     if (!f.endsWith(".js")) return;
     const command = require(`./commands/${f}`)
     if (!command.name || !command.type) return;
-    client.commands.push({
+    client.slashCommandDatas.push({
         name: command.name,
         description: command.description,
         options: command.options,
@@ -52,7 +52,7 @@ FS.readdirSync("./events").forEach(f => {
     client.success(`[EVENT] ${event.name} eventi yüklendi.`)
 })
 
-client.login(config.token)
+client.login(ayarlar.bot_token)
 
 process.on("unhandledRejection", (reason) => {
     client.error(`[ERROR] ${reason}`);
@@ -66,6 +66,3 @@ process.on("uncaughtExceptionMonitor", (err) => {
 process.on("warning", (err) => {
     client.warn(`[WARN] ${err}`);
 });
-
-
-
